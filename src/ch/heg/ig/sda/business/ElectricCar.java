@@ -6,9 +6,8 @@ public class ElectricCar extends Vehicle {
 
     private float batteryLife;
 
-    public ElectricCar() {
-        // TODO - implement ElectricCar.ElectricCar
-        throw new UnsupportedOperationException();
+    public ElectricCar(int id, String registrationPlate, String model, int personCapacity, String brand, float batteryLife) {
+        super(id, registrationPlate, model, personCapacity, brand);
+        this.batteryLife = batteryLife;
     }
-
 }
