@@ -67,4 +67,26 @@ public abstract class Vehicle {
         this.brand = brand;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + this.getId();
+        return hash;
+    }
+
+    @Override public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        final Vehicle other = (Vehicle) obj;
+
+        return this.getId() == other.getId();
+    }
 }
