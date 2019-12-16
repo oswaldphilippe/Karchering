@@ -1,4 +1,4 @@
-package ch.heg.ig.sda;
+package ch.heg.ig.sda.app;
 
 public class Main {
 
