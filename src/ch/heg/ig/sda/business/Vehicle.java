@@ -67,6 +67,10 @@ public abstract class Vehicle {
         this.brand = brand;
     }
 
+    public boolean hasParking() {
+        return !(this.parking == null);
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
