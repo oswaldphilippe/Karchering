@@ -13,7 +13,7 @@ public class Park {
         throw new UnsupportedOperationException();
     }
 
-    public Parking[] parkingsToList() {
+    public Parking parkingsToList() {
         // TODO - implement Park.parkingsToList
         throw new UnsupportedOperationException();
     }

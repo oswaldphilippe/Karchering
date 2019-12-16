@@ -6,9 +6,8 @@ public class PetrolCar extends Vehicle {
 
     private float tankCapacity;
 
-    public PetrolCar() {
-        // TODO - implement PetrolCar.PetrolCar
-        throw new UnsupportedOperationException();
+    public PetrolCar(int id, String registrationPlate, String model, int personCapacity, String brand, float tankCapacity) {
+        super(id, registrationPlate, model, personCapacity, brand);
+        this.tankCapacity = tankCapacity;
     }
-
 }
