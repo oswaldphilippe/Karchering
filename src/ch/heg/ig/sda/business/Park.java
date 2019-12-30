@@ -7,8 +7,10 @@ import java.util.List;
 public class Park {
     private HashSet<Parking> parkings;
     private HashSet<Vehicle> vehicles;
-    public Park() {
 
+    public Park() {
+        parkings = new HashSet<>();
+        vehicles = new HashSet<>();
     }
 
     public List<Parking> parkingsToList() {
