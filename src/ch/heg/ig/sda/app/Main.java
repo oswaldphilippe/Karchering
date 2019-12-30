@@ -1,9 +1,6 @@
 package ch.heg.ig.sda.app;
 
-import ch.heg.ig.sda.business.ElectricCar;
-import ch.heg.ig.sda.business.Park;
-import ch.heg.ig.sda.business.PetrolCar;
-import ch.heg.ig.sda.business.Vehicle;
+import ch.heg.ig.sda.business.*;
 
 public class Main {
 
@@ -13,8 +10,9 @@ public class Main {
         park = new Park();
     }
 
-    public void run() {
+    private void run() {
         createVehicles();
+        createParkings();
     }
 
     public static void main(String[] args) { new Main().run(); }
@@ -38,5 +36,15 @@ public class Main {
         park.addVehicle(car6);
         park.addVehicle(car7);
         park.addVehicle(car8);
+    }
+
+    private void createParkings() {
+        Parking p1 = new Parking(1, "Neuchâtel, Rue de la Gare", "2000", 46.95, 6.85, 5);
+        Parking p2 = new Parking(2, "La Chaux-de-Fonds, Rue de la Gare", "2300", 47.13, 6.85, 3);
+        Parking p3 = new Parking(3, "Neuchâtel, Place Pury", "2000", 40.10, 50.10, 4);
+
+        park.addParking(p1);
+        park.addParking(p2);
+        park.addParking(p3);
     }
 }
