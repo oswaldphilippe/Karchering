@@ -13,6 +13,8 @@ public class Main {
     private void run() {
         createVehicles();
         createParkings();
+
+
     }
 
     public static void main(String[] args) { new Main().run(); }
@@ -41,7 +43,7 @@ public class Main {
     private void createParkings() {
         Parking p1 = new Parking(1, "Neuchâtel, Rue de la Gare", "2000", 46.95, 6.85, 5);
         Parking p2 = new Parking(2, "La Chaux-de-Fonds, Rue de la Gare", "2300", 47.13, 6.85, 3);
-        Parking p3 = new Parking(3, "Neuchâtel, Place Pury", "2000", 40.10, 50.10, 4);
+        Parking p3 = new Parking(3, "Neuchâtel, Place Pury", "2000", 46.95, 6.85, 4);
 
         park.addParking(p1);
         park.addParking(p2);
