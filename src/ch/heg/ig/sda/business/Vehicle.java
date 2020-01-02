@@ -23,7 +23,7 @@ public abstract class Vehicle {
         return parking;
     }
 
-    public void setParking(Parking parking) {
+    protected void setParking(Parking parking) {
         this.parking = parking;
     }
 

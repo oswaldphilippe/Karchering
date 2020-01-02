@@ -78,17 +78,33 @@ public class ParkTest {
         assertTrue(isRemoved);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void ParkRemoveVehicleFalseWhenNotRemoved() {
         // Given
         Park p = new Park();
 
         // When
         Vehicle v = new PetrolCar(5, "NE12345", "Golf 2", 5, "Volkswagen", 60);
-        boolean isRemoved = p.removeVehicle(v);
 
         // Then
-        assertFalse(isRemoved);
+        p.removeVehicle(v);
+    }
+
+    @Test
+    public void ParkRemoveVehicleRemovesVehicleFromItsParking() {
+        // Given
+        Park park = new Park();
+        Vehicle v = new PetrolCar(5, "NE12345", "Golf 2", 5, "Volkswagen", 60);
+        Parking parking = new Parking(1, "Neuchâtel, Rue de la Gare", "2000", 46.95, 6.85, 5);
+        park.addVehicle(v);
+        park.addParking(parking);
+        park.addVehicleToParking(v, parking);
+
+        // When
+        boolean isRemoved = park.removeVehicle(v);
+
+        // Then
+        assertTrue(isRemoved);
     }
 
     @Test
@@ -105,16 +121,47 @@ public class ParkTest {
         assertTrue(isRemoved);
     }
 
-    @Test
-    public void ParkRemoveParkingFalseWhenNotRemoved() {
+    @Test(expected = IllegalArgumentException.class)
+    public void ParkRemoveParkingExceptionWhenNotRemoved() {
         // Given
         Park park = new Park();
 
         // When
         Parking parking = new Parking(1, "Neuchâtel, Rue de la Gare", "2000", 46.95, 6.85, 5);
-        boolean isRemoved = park.removeParking(parking);
 
         // Then
-        assertFalse(isRemoved);
+        park.removeParking(parking);
+    }
+
+    @Test
+    public void ParkAddParkingToVehicleParkingHasVehicle() {
+        // Given
+        Park park = new Park();
+        Vehicle v = new PetrolCar(5, "NE12345", "Golf 2", 5, "Volkswagen", 60);
+        Parking parking = new Parking(1, "Neuchâtel, Rue de la Gare", "2000", 46.95, 6.85, 5);
+        park.addVehicle(v);
+        park.addParking(parking);
+
+        // When
+        park.addVehicleToParking(v, parking);
+
+        // Then
+        assertTrue(parking.containsVehicle(v));
+    }
+
+    @Test
+    public void ParkAddParkingToVehicleVehicleHasParking() {
+        // Given
+        Park park = new Park();
+        Vehicle v = new PetrolCar(5, "NE12345", "Golf 2", 5, "Volkswagen", 60);
+        Parking parking = new Parking(1, "Neuchâtel, Rue de la Gare", "2000", 46.95, 6.85, 5);
+        park.addVehicle(v);
+        park.addParking(parking);
+
+        // When
+        park.addVehicleToParking(v, parking);
+
+        // Then
+        assertEquals(v.getParking(), parking);
     }
 }

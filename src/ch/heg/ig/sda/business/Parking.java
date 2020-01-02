@@ -2,7 +2,9 @@ package ch.heg.ig.sda.business;
 
 import ch.heg.ig.sda.business.Vehicle;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Parking {
@@ -15,6 +17,10 @@ public class Parking {
     private double longitude;
     private int capacity;
 
+    private Parking() {
+        this.vehicles = new HashSet<>();
+    }
+
     public Parking(int id, String address, String zipCode, double latitude, double longitude, int capacity) {
         this();
         this.id = id;
@@ -23,10 +29,6 @@ public class Parking {
         this.latitude = latitude;
         this.longitude = longitude;
         this.capacity = capacity;
-    }
-
-    public Parking() {
-        this.vehicles = new HashSet<>();
     }
 
     public int getId() {
@@ -77,14 +79,18 @@ public class Parking {
         this.capacity = capacity;
     }
 
-    public boolean addVehicle(Vehicle vehicle) throws IllegalStateException{
-        if(this.getFreeSpace() <= 0){
+    protected boolean addVehicle(Vehicle vehicle) throws IllegalStateException{
+        if (this.getFreeSpace() <= 0) {
             throw new IllegalStateException("Plus de place dans le parking.");
         }
         return this.vehicles.add(vehicle);
     }
 
-    public boolean removeVehicle(Vehicle vehicle) {
+    public List<Vehicle> getVehicles() {
+        return new ArrayList<Vehicle>(this.vehicles);
+    }
+
+    protected boolean removeVehicle(Vehicle vehicle) {
         return this.vehicles.remove(vehicle);
     }
 

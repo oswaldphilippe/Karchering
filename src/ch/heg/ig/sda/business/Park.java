@@ -13,11 +13,11 @@ public class Park {
         vehicles = new HashSet<>();
     }
 
-    public List<Parking> parkingsToList() {
+    public List<Parking> getParkings() {
         return new ArrayList<>(parkings);
     }
 
-    public List<Vehicle> vehiclesToList() {
+    public List<Vehicle> getVehicles() {
         return new ArrayList<>(vehicles);
     }
 
@@ -30,33 +30,75 @@ public class Park {
     }
 
     public boolean addVehicleToParking(Vehicle v, Parking p) {
-        if (!v.getParking().equals(p) && vehicleExists(v) && parkingExists(p)){
-            return p.addVehicle(v);
+        checkParkingExists(p);
+        checkVehicleExists(v);
+
+        if (!v.hasParking()) {
+            if (p.addVehicle(v)) {
+                v.setParking(p);
+                return true;
+            }
         }
-        else {
-            return false;
+        return false;
+    }
+
+    public boolean removeVehicleFromParking(Vehicle v, Parking p) {
+        checkParkingExists(p);
+        checkVehicleExists(v);
+
+        if (v.hasParking()) {
+            if (p.removeVehicle(v)) {
+                v.setParking(null);
+                return true;
+            }
         }
+        return false;
+    }
+
+    public boolean moveVehicle(Vehicle v, Parking newParking) {
+        checkParkingExists(newParking);
+        checkVehicleExists(v);
+
+        if (newParking.getFreeSpace() > 0) {
+            // Remove vehicle from old parking
+            if (v.hasParking()) {
+                removeVehicleFromParking(v, v.getParking());
+            }
+            // Add to new parking
+            return addVehicleToParking(v, newParking);
+        }
+        return false;
     }
     
     public boolean removeVehicle(Vehicle v) {
+        checkVehicleExists(v);
+
+        // Remove vehicle from its parking first
         if (v.hasParking()) {
-            v.getParking().removeVehicle(v);
+            removeVehicleFromParking(v, v.getParking());
         }
         return vehicles.remove(v);
     }
     
-    public boolean removeParking(Parking p) {
+    public boolean removeParking(Parking p) throws IllegalStateException {
+        checkParkingExists(p);
+
+        // Parking must be empty
         if (!p.isEmpty()) {
-            return false;
+            throw new IllegalStateException("Le parking doit être vide");
         }
         return parkings.remove(p);
     }
     
-    public boolean vehicleExists(Vehicle v){
-        return vehicles.contains(v);
+    public void checkVehicleExists(Vehicle v) throws IllegalArgumentException {
+        if (!vehicles.contains(v)) {
+            throw new IllegalArgumentException("Le véhicule n'existe pas dans le parc");
+        }
     }
     
-    public boolean parkingExists(Parking p){
-        return parkings.contains(p);
+    public void checkParkingExists(Parking p) throws IllegalArgumentException {
+        if (!parkings.contains(p)) {
+            throw new IllegalArgumentException("Le parking n'existe pas dans le parc");
+        }
     }
 }
