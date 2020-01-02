@@ -90,13 +90,13 @@ public class Park {
         return parkings.remove(p);
     }
     
-    public void checkVehicleExists(Vehicle v) throws IllegalArgumentException {
+    private void checkVehicleExists(Vehicle v) throws IllegalArgumentException {
         if (!vehicles.contains(v)) {
             throw new IllegalArgumentException("Le véhicule n'existe pas dans le parc");
         }
     }
     
-    public void checkParkingExists(Parking p) throws IllegalArgumentException {
+    private void checkParkingExists(Parking p) throws IllegalArgumentException {
         if (!parkings.contains(p)) {
             throw new IllegalArgumentException("Le parking n'existe pas dans le parc");
         }
