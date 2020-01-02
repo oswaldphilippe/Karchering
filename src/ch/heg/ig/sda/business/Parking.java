@@ -16,6 +16,7 @@ public class Parking {
     private int capacity;
 
     public Parking(int id, String address, String zipCode, double latitude, double longitude, int capacity) {
+        this();
         this.id = id;
         this.address = address;
         this.zipCode = zipCode;
