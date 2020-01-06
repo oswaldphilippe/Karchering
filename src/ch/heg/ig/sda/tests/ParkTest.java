@@ -164,4 +164,21 @@ public class ParkTest {
         // Then
         assertEquals(v.getParking(), parking);
     }
+
+    @Test
+    public void ParkRemoveVehicleFromParkingParkingRemovedFromVehicle() {
+        // Given
+        Park park = new Park();
+        Vehicle v = new PetrolCar(5, "NE12345", "Golf 2", 5, "Volkswagen", 60);
+        Parking parking = new Parking(1, "Neuchâtel, Rue de la Gare", "2000", 46.95, 6.85, 5);
+        park.addVehicle(v);
+        park.addParking(parking);
+        park.addVehicleToParking(v, parking);
+
+        // When
+        park.removeVehicleFromParking(v, parking);
+
+        // Then
+        assertNull(v.getParking());
+    }
 }
