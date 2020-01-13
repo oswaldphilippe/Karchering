@@ -2,6 +2,8 @@ package ch.heg.ig.sda.app;
 
 import ch.heg.ig.sda.business.*;
 
+import java.io.*;
+
 public class Main {
 
     private Park park;
@@ -11,10 +13,8 @@ public class Main {
     }
 
     private void run() {
+        loadParkings();
         createVehicles();
-        createParkings();
-
-
     }
 
     public static void main(String[] args) { new Main().run(); }
@@ -40,13 +40,48 @@ public class Main {
         park.addVehicle(car8);
     }
 
-    private void createParkings() {
-        Parking p1 = new Parking(1, "Neuchâtel, Rue de la Gare", "2000", 46.95, 6.85, 5);
-        Parking p2 = new Parking(2, "La Chaux-de-Fonds, Rue de la Gare", "2300", 47.13, 6.85, 3);
-        Parking p3 = new Parking(3, "Neuchâtel, Place Pury", "2000", 46.95, 6.85, 4);
+    private void loadParkings() {
+        String csvFile = "./resources/400parkings.csv";
+        BufferedReader br = null;
+        String line = "";
+        String cvsSplitBy = ",";
 
-        park.addParking(p1);
-        park.addParking(p2);
-        park.addParking(p3);
+        try {
+
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(csvFile), "UTF-8"));
+
+            int i = 0;
+            while ( (line = br.readLine()) != null ) {
+
+                if (i > 0) {
+                    String[] splittedLine = line.split(cvsSplitBy);
+                    Parking parking = new Parking(
+                            Integer.parseInt(splittedLine[0]),
+                            splittedLine[1],
+                            splittedLine[2],
+                            Double.parseDouble(splittedLine[3]),
+                            Double.parseDouble(splittedLine[4]),
+                            Integer.parseInt(splittedLine[5])
+                    );
+                    this.park.addParking(parking);
+                }
+
+                i++;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
