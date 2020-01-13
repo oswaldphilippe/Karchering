@@ -68,6 +68,7 @@ public class Main {
 
                 i++;
             }
+            System.out.println("Added " + (i - 1) + " parkings to park");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
 
