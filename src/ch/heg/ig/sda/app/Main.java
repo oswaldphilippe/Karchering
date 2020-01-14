@@ -1,8 +1,10 @@
 package ch.heg.ig.sda.app;
 
 import ch.heg.ig.sda.business.*;
-
-import java.io.*;
+import ch.heg.ig.sda.data.DataLoader;
+import ch.heg.ig.sda.data.ElectricCarDataLoader;
+import ch.heg.ig.sda.data.ParkingDataLoader;
+import ch.heg.ig.sda.data.PetrolCarDataLoader;
 
 public class Main {
 
@@ -14,6 +16,7 @@ public class Main {
 
     private void run() {
         evaluateParkingLoadingTime();
+        evaluateVehiclesLoadingTime();
     }
 
     public static void main(String[] args) { new Main().run(); }
@@ -30,57 +33,26 @@ public class Main {
     }
 
     private void evaluateVehiclesLoadingTime() {
+        System.out.println("Chargement des véhicules...");
+        long startTime = System.currentTimeMillis();
+        int nbVehicles = loadVehicles();
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
 
+        System.out.println("Temps de chargement des " + nbVehicles + " véhicules : " + elapsedTime + "ms");
     }
 
     private int loadParkings() {
-        String csvFile = "./resources/400parkings.csv";
-        BufferedReader br = null;
-        String line = "";
-        String cvsSplitBy = ",";
-
-        try {
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(csvFile), "UTF-8"));
-
-            int i = 0;
-            while ( (line = br.readLine()) != null ) {
-
-                if (i > 0) {
-                    String[] splittedLine = line.split(cvsSplitBy);
-                    Parking parking = new Parking(
-                            Integer.parseInt(splittedLine[0]),
-                            splittedLine[1],
-                            splittedLine[2],
-                            Double.parseDouble(splittedLine[3]),
-                            Double.parseDouble(splittedLine[4]),
-                            Integer.parseInt(splittedLine[5])
-                    );
-                    this.park.addParking(parking);
-                }
-
-                i++;
-            }
-            System.out.println("Added " + (i - 1) + " parkings to park");
-            return i-1;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return 0;
+        DataLoader dl = new ParkingDataLoader(this.park);
+        return dl.loadFromCsv("./resources/400_parkings.csv");
     }
 
-    private void loadVehicles() {
-
+    private int loadVehicles() {
+        DataLoader pDl = new PetrolCarDataLoader(this.park);
+        DataLoader eDl = new ElectricCarDataLoader(this.park);
+        int i = 0;
+        i += pDl.loadFromCsv("./resources/1000_petrol_cars.csv");
+        return i + eDl.loadFromCsv("./resources/1000_electric_cars.csv");
     }
+
 }
