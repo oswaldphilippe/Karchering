@@ -91,6 +91,8 @@ public abstract class Vehicle {
 
         final Vehicle other = (Vehicle) obj;
 
-        return this.getId() == other.getId();
+        return ( this.getId() == other.getId() ) &&
+                ( this.getBrand() == other.getBrand() ) &&
+                ( this.getModel() == other.getModel() );
     }
 }
