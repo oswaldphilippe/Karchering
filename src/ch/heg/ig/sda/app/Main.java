@@ -20,6 +20,7 @@ public class Main {
         evaluateParkingLoadingTime();
         evaluateVehiclesLoadingTime();
         evaluateGetParkingsTime();
+        evaluateGetVehiclesTime();
         evaluateAddParkingTime();
         evaluateAddVehicleToParkingTime();
     }
@@ -55,12 +56,23 @@ public class Main {
         int nbParkings = park.getParkings().size();
         long elapsedTime = endTime - startTime;
 
-        System.out.println("Temps d'obtention des " + nbParkings + " Parkings : " + elapsedTime + "ms");
+        System.out.println("Temps d'obtention des " + nbParkings + " parkings : " + elapsedTime + "ms");
+    }
+
+    private void evaluateGetVehiclesTime() {
+        System.out.println("Obtention des véhicules...");
+        long startTime = System.currentTimeMillis();
+        park.getVehicles();
+        long endTime = System.currentTimeMillis();
+        int nbVehicles = park.getVehicles().size();
+        long elapsedTime = endTime - startTime;
+
+        System.out.println("Temps d'obtention des " + nbVehicles + " véhicules : " + elapsedTime + "ms");
     }
 
     private void evaluateAddParkingTime() {
         System.out.println("Ajout d'un parking...");
-        Parking p = new Parking(12,"rue de la colline 3","2202",234.5,295.4,20);
+        Parking p = new Parking(9000,"rue de la colline 3","2202",234.5,295.4,20);
         long startTime = System.currentTimeMillis();
         park.addParking(p);
         long endTime = System.currentTimeMillis();
