@@ -5,10 +5,10 @@ import java.io.*;
 
 public abstract class DataLoader {
 
-    protected Park p;
+    protected Park park;
 
-    public DataLoader(Park p) {
-        this.p = p;
+    public DataLoader(Park park) {
+        this.park = park;
     }
 
     public int loadFromCsv(String csvFile) {

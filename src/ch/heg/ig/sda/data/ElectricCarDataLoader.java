@@ -2,13 +2,12 @@ package ch.heg.ig.sda.data;
 
 import ch.heg.ig.sda.business.ElectricCar;
 import ch.heg.ig.sda.business.Park;
-import ch.heg.ig.sda.business.PetrolCar;
 import ch.heg.ig.sda.business.Vehicle;
 
 public class ElectricCarDataLoader extends DataLoader {
 
-    public ElectricCarDataLoader(Park p) {
-        super(p);
+    public ElectricCarDataLoader(Park park) {
+        super(park);
     }
 
     @Override
@@ -22,6 +21,6 @@ public class ElectricCarDataLoader extends DataLoader {
                 splittedLine[4],
                 Float.parseFloat(splittedLine[5])
         );
-        this.p.addVehicle(v);
+        this.park.addVehicle(v);
     }
 }
