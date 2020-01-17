@@ -57,7 +57,6 @@ public class Main {
     }
 
     private void evaluateGetVehiclesTime() {
-        System.out.println("Obtention des véhicules...");
         long startTime = System.currentTimeMillis();
         park.getVehicles();
         long endTime = System.currentTimeMillis();
